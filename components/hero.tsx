@@ -7,9 +7,9 @@ import { TechnicalFrame } from "@/components/technical-frame";
 export function Hero() {
   return (
     <section className="border-b">
-      <div className="mx-auto grid max-w-7xl grid-cols-12 items-start gap-10 px-6 pt-20 pb-24 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-12 items-start gap-x-0 gap-y-10 px-6 pt-14 pb-16 sm:pt-20 sm:pb-24 lg:gap-x-10 lg:px-8">
         {/* Texte */}
-        <div className="col-span-12 lg:col-span-7">
+        <div className="col-span-12 min-w-0 lg:col-span-7">
           <div className="eyebrow mb-8 flex items-center gap-3">
             <span className="text-copper">—</span>
             <span>Bureau d&apos;études mécanique</span>
@@ -50,7 +50,7 @@ export function Hero() {
         </div>
 
         {/* Dessin technique */}
-        <div className="col-span-12 lg:col-span-5">
+        <div className="col-span-12 min-w-0 lg:col-span-5">
           <TechnicalFrame label="Rendu CAO" className="aspect-4/5">
             <svg
               viewBox="0 0 400 500"

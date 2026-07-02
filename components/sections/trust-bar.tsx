@@ -27,7 +27,7 @@ export function TrustBar() {
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <Reveal className="flex flex-wrap items-center justify-between gap-6">
           <p className="eyebrow">Ils nous ont fait confiance</p>
-          <div className="ml-0 grid flex-1 grid-cols-3 gap-x-10 gap-y-6 text-muted-foreground md:ml-10 md:grid-cols-6">
+          <div className="ml-0 grid grow grid-cols-1 gap-y-4 text-muted-foreground sm:grid-cols-3 sm:gap-x-10 sm:gap-y-6 md:ml-10 md:grid-cols-6">
             {clients.map((c) => (
               <div key={c.key} className="flex items-center">
                 {c}

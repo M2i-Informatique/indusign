@@ -9,8 +9,8 @@ const coords = [
 export function Contact() {
   return (
     <section id="contact" className="scroll-mt-20">
-      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-10 px-6 py-24 lg:px-8">
-        <div className="col-span-12 lg:col-span-5">
+      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-10 px-6 py-14 sm:py-24 lg:gap-x-10 lg:px-8">
+        <div className="col-span-12 min-w-0 lg:col-span-5">
           <p className="eyebrow mb-4">
             <span className="text-copper">—</span> 06 / Contact
           </p>

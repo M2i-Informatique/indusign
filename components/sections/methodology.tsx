@@ -33,7 +33,7 @@ const steps = [
 export function Methodology() {
   return (
     <section className="border-b">
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-24 lg:px-8">
         <SectionHeader
           index="03"
           eyebrow="Méthodologie"
@@ -49,7 +49,7 @@ export function Methodology() {
         />
 
         <div className="relative">
-          <div className="absolute top-[28px] right-0 left-0 h-px bg-border" />
+          <div className="absolute top-[28px] right-0 left-0 hidden h-px bg-border md:block" />
           <div className="relative grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-5">
             {steps.map((step, i) => (
               <Reveal key={step.num} delay={i * 80}>

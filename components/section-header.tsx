@@ -31,11 +31,11 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "grid grid-cols-12 gap-x-10 gap-y-6",
+        "grid grid-cols-12 gap-x-0 gap-y-6 lg:gap-x-10",
         className,
       )}
     >
-      <div className="col-span-12 lg:col-span-6">
+      <div className="col-span-12 min-w-0 lg:col-span-6">
         <p className="eyebrow mb-4">
           <span className="text-copper">—</span>
           {index ? ` ${index} / ` : " "}
@@ -47,7 +47,7 @@ export function SectionHeader({
       </div>
 
       {description && (
-        <div className="col-span-12 pt-1 lg:col-span-5 lg:col-start-8 lg:pt-3">
+        <div className="col-span-12 min-w-0 pt-1 lg:col-span-5 lg:col-start-8 lg:pt-3">
           <p
             className={cn(
               "text-base leading-relaxed lg:text-[16.5px]",

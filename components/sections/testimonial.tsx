@@ -3,8 +3,8 @@ import { Reveal } from "@/components/reveal";
 export function Testimonial() {
   return (
     <section className="border-b">
-      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-10 px-6 py-24 lg:px-8">
-        <div className="col-span-12 lg:col-span-3">
+      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-x-0 gap-y-10 px-6 py-14 sm:py-24 lg:gap-x-10 lg:px-8">
+        <div className="col-span-12 min-w-0 lg:col-span-3">
           <p className="eyebrow mb-6">
             <span className="text-copper">—</span> 05 / Témoignage
           </p>
@@ -21,7 +21,7 @@ export function Testimonial() {
           </div>
         </div>
 
-        <div className="col-span-12 lg:col-span-8 lg:col-start-5">
+        <div className="col-span-12 min-w-0 lg:col-span-8 lg:col-start-5">
           <Reveal>
             <blockquote className="text-[28px] leading-[1.25] font-light tracking-tight text-balance lg:text-[34px]">
               <span className="mr-1 align-top font-mono text-[22px] text-copper">

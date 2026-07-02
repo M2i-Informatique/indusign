@@ -31,7 +31,7 @@ const services = [
 export function Services() {
   return (
     <section className="border-b">
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-24 lg:px-8">
         <SectionHeader
           index="01"
           eyebrow="Nos métiers"

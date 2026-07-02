@@ -57,7 +57,7 @@ const projects = [
 export function Realisations() {
   return (
     <section id="realisations" className="scroll-mt-20 border-b">
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-24 lg:px-8">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-8">
           <div>
             <p className="eyebrow mb-4">

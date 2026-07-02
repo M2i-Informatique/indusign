@@ -26,9 +26,9 @@ const reasons = [
 export function WhyInduscale() {
   return (
     <section className="bg-ink text-ink-foreground">
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <div className="mb-16 grid grid-cols-12 gap-x-10 gap-y-6">
-          <div className="col-span-12 lg:col-span-5">
+      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-24 lg:px-8">
+        <div className="mb-16 grid grid-cols-12 gap-x-0 gap-y-6 lg:gap-x-10">
+          <div className="col-span-12 min-w-0 lg:col-span-5">
             <p className="eyebrow mb-4" style={{ color: "var(--copper)" }}>
               — 02 / Pourquoi Induscale
             </p>
@@ -38,7 +38,7 @@ export function WhyInduscale() {
               pas un prestataire de plus.
             </h2>
           </div>
-          <div className="col-span-12 pt-1 lg:col-span-5 lg:col-start-8 lg:pt-3">
+          <div className="col-span-12 min-w-0 pt-1 lg:col-span-5 lg:col-start-8 lg:pt-3">
             <p className="text-base leading-relaxed text-ink-foreground/70">
               Nous adressons les TPE et PME industrielles qui veulent un
               interlocuteur unique, fiable, et capable de tenir le projet de bout
