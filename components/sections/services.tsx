@@ -1,79 +1,51 @@
-import Link from "next/link";
-import { ArrowRight, DraftingCompass, Boxes, Factory } from "lucide-react";
-
-import { SectionHeader } from "@/components/section-header";
-import { Reveal } from "@/components/reveal";
+import { Eyebrow } from "@/components/eyebrow";
 
 const services = [
   {
-    num: "01",
-    icon: DraftingCompass,
-    title: "Conception & Design",
-    text: "Modélisation CAO, design produit, calculs et optimisation. De l'esquisse au dossier de définition.",
-    href: "#",
+    title: "Conception",
+    description:
+      "Étude de faisabilité, modélisation CAO 3D, plans cotés et choix des matériaux. Nous transformons votre besoin en un dossier technique prêt à fabriquer.",
   },
   {
-    num: "02",
-    icon: Boxes,
     title: "Prototypage",
-    text: "Impression 3D, usinage rapide, premières pièces fonctionnelles. Itérer vite, valider sereinement.",
-    href: "#",
+    description:
+      "Maquettes, pièces d'essai et validation fonctionnelle. Chaque itération sécurise la conception avant tout engagement industriel.",
   },
   {
-    num: "03",
-    icon: Factory,
     title: "Industrialisation",
-    text: "Sourcing fournisseurs, mise au point process, séries pilotes. Du dossier figé aux premières pièces série.",
-    href: "#",
+    description:
+      "Définition des outillages, mise en série et suivi de fabrication. Nous restons à vos côtés jusqu'aux premières pièces bonnes.",
   },
 ];
 
 export function Services() {
   return (
-    <section className="border-b">
-      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-24 lg:px-8">
-        <SectionHeader
-          index="01"
-          eyebrow="Nos métiers"
-          title={
-            <>
-              Trois expertises,
-              <br />
-              une chaîne continue.
-            </>
-          }
-          description="Chacun de nos métiers couvre une phase précise du cycle produit. Ensemble, ils forment un parcours intégré, sans rupture de responsabilité ni perte d'information."
-          className="mb-16"
-        />
-
-        <div className="grid grid-cols-1 gap-px border bg-border md:grid-cols-3">
-          {services.map((service, i) => (
-            <Reveal key={service.num} delay={i * 80}>
-              <article className="group flex h-full flex-col bg-background p-8 lg:p-10">
-                <div className="mb-10 flex items-start justify-between">
-                  <service.icon
-                    className="size-9 stroke-[1.25] text-foreground"
-                    aria-hidden="true"
-                  />
-                  <span className="eyebrow">{service.num}</span>
-                </div>
-                <h3 className="mb-3 text-[22px] font-medium tracking-tight">
-                  {service.title}
-                </h3>
-                <p className="mb-8 text-[14.5px] leading-relaxed text-muted-foreground">
-                  {service.text}
-                </p>
-                <Link
-                  href={service.href}
-                  className="mt-auto inline-flex w-fit items-center gap-2 border-b border-foreground pb-0.5 text-[13.5px] font-medium transition-all hover:gap-3"
-                >
-                  En savoir plus
-                  <ArrowRight className="size-3.5" />
-                </Link>
-              </article>
-            </Reveal>
-          ))}
+    <section id="services" className="mx-auto max-w-7xl scroll-mt-24 px-6 lg:px-10">
+      <div className="flex min-h-svh flex-col justify-center py-16">
+        <div className="mb-12 max-w-2xl">
+          <div className="mb-4">
+            <Eyebrow>Nos services</Eyebrow>
+          </div>
+          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            Un partenaire unique, de l&apos;étude à la fabrication.
+          </h2>
         </div>
+
+        <ol className="grid gap-6 md:grid-cols-3">
+          {services.map((service, index) => (
+            <li key={service.title} className="rounded-2xl bg-surface p-8">
+              <p className="mb-6 font-heading text-sm font-semibold text-primary">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mb-3 font-heading text-xl font-semibold">
+                {service.title}
+              </h3>
+              <p className="leading-relaxed text-muted-foreground">
+                {service.description}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

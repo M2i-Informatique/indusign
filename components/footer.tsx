@@ -1,92 +1,45 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const columns = [
-  {
-    title: "Expertises",
-    links: [
-      { label: "Conception mécanique", href: "#" },
-      { label: "Prototypage", href: "#" },
-      { label: "Industrialisation", href: "#" },
-      { label: "Voir tout", href: "#" },
-    ],
-  },
-  {
-    title: "Secteurs",
-    links: [
-      { label: "Médical", href: "#" },
-      { label: "Mobilité", href: "#" },
-      { label: "IoT industriel", href: "#" },
-      { label: "Biens d'équipement", href: "#" },
-    ],
-  },
+const footerLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Réalisations", href: "#realisations" },
+  { label: "Méthode", href: "#methode" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-ink-foreground">
-      <div className="mx-auto max-w-7xl px-6 pt-14 pb-10 sm:pt-20 lg:px-8">
-        <div className="mb-16 grid grid-cols-2 gap-10 md:grid-cols-4">
-          <div className="col-span-2 md:col-span-1">
-            <Image
-              src="/Induscale.white.svg"
-              alt="Induscale"
-              width={228}
-              height={38}
-              className="mb-5 h-7 w-auto"
-            />
-            <p className="max-w-[220px] text-[13.5px] leading-relaxed text-ink-foreground/60">
-              Bureau d&apos;études mécanique. De l&apos;idée à la série.
-            </p>
-          </div>
+    <footer className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-10">
+      <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+        <Link href="/" aria-label="Indusign — Accueil">
+          <Image
+            src="/logo-wordmark.jpg"
+            alt="Indusign"
+            width={541}
+            height={53}
+            className="h-5 w-auto"
+          />
+        </Link>
 
-          {columns.map((col) => (
-            <div key={col.title}>
-              <p className="eyebrow mb-5 text-ink-foreground/50">{col.title}</p>
-              <ul className="space-y-2.5 text-[14px] text-ink-foreground/85">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link className="transition-colors hover:text-ink-foreground" href={link.href}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div>
-            <p className="eyebrow mb-5 text-ink-foreground/50">Contact</p>
-            <ul className="space-y-2.5 text-[14px] text-ink-foreground/85">
-              <li>14 rue de la Mécanique</li>
-              <li>92100 Boulogne-Billancourt</li>
-              <li>+33 1 84 60 12 40</li>
-              <li>
-                <a
-                  className="underline-offset-2 transition-colors hover:text-ink-foreground hover:underline"
-                  href="mailto:contact@induscale.fr"
+        <nav aria-label="Pied de page">
+          <ul className="flex flex-wrap justify-center gap-6 text-sm">
+            {footerLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  contact@induscale.fr
-                </a>
+                  {link.label}
+                </Link>
               </li>
-            </ul>
-          </div>
-        </div>
+            ))}
+          </ul>
+        </nav>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-ink-foreground/15 pt-8 font-mono text-[12px] text-ink-foreground/50">
-          <p>© 2026 INDUSCALE SAS</p>
-          <div className="flex gap-6">
-            <Link href="#" className="transition-colors hover:text-ink-foreground">
-              Mentions légales
-            </Link>
-            <Link href="#" className="transition-colors hover:text-ink-foreground">
-              CGV
-            </Link>
-            <Link href="#" className="transition-colors hover:text-ink-foreground">
-              Confidentialité
-            </Link>
-          </div>
-        </div>
+        <p className="text-sm text-muted-foreground">
+          © {new Date().getFullYear()} Indusign
+        </p>
       </div>
     </footer>
   );

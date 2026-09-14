@@ -2,96 +2,119 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ArrowRight } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
 
 const navLinks = [
-  { label: "Accueil", href: "/" },
-  { label: "Réalisations", href: "#realisations" },
-  { label: "Contact", href: "#contact" },
+  { label: "Accueil", href: "#accueil", sectionId: "accueil" },
+  { label: "Services", href: "#services", sectionId: "services" },
+  { label: "Réalisations", href: "#realisations", sectionId: "realisations" },
+  { label: "Contact", href: "#contact", sectionId: "contact" },
 ];
 
+/** Id de la section qui traverse le milieu de l'écran (scroll spy). */
+function useActiveSection(sectionIds: string[]) {
+  const [active, setActive] = useState(sectionIds[0]);
+
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries.find((e) => e.isIntersecting);
+        if (entry) setActive(entry.target.id);
+      },
+      // Zone d'observation réduite à une ligne au milieu du viewport.
+      { rootMargin: "-50% 0px -50% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [sectionIds]);
+
+  return active;
+}
+
+/** Vrai dès que la page a défilé au-delà du seuil (état compact du header). */
+function useScrolled(threshold: number) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > threshold);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [threshold]);
+
+  return scrolled;
+}
+
+const sectionIds = navLinks.map((link) => link.sectionId);
+
 export function Header() {
+  const activeSection = useActiveSection(sectionIds);
+  const scrolled = useScrolled(80);
+
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-8">
+    // Même grille dans les deux états : la bascule ne fait que fondre logo et
+    // CTA, et détacher la pill de navigation. Tout est animable en CSS.
+    <header className="pointer-events-none sticky top-0 z-40">
+      <div
+        className={`mx-auto grid h-24 max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 transition-colors duration-300 lg:px-10 ${
+          scrolled ? "bg-transparent" : "bg-background"
+        }`}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center" aria-label="Induscale — Accueil">
+        <Link
+          href="#accueil"
+          aria-label="Indusign — Accueil"
+          className={`justify-self-start transition-opacity duration-300 ${
+            scrolled ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100"
+          }`}
+          tabIndex={scrolled ? -1 : undefined}
+        >
           <Image
-            src="/Induscale.dark.svg"
-            alt="Induscale"
-            width={228}
-            height={38}
+            src="/logo-wordmark.jpg"
+            alt="Indusign"
+            width={541}
+            height={53}
             priority
-            className="h-7 w-auto dark:hidden"
-          />
-          <Image
-            src="/Induscale.white.svg"
-            alt="Induscale"
-            width={228}
-            height={38}
-            priority
-            className="hidden h-7 w-auto dark:block"
+            className="h-6 w-auto"
           />
         </Link>
 
-        {/* Desktop navigation */}
-        <nav className="hidden items-center gap-9 text-sm text-muted-foreground lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* Navigation (pill centrée) */}
+        <nav className="pointer-events-auto hidden items-center gap-1 rounded-full border border-border bg-surface p-1 md:flex">
+          {navLinks.map((link) => {
+            const isActive = link.sectionId === activeSection;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-border"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2.5">
-          <Button
-            variant="outline"
-            nativeButton={false}
-            className="hidden md:inline-flex"
-            render={
-              <Link href="#contact">
-                Demander un devis
-                <ArrowRight className="size-4" />
-              </Link>
-            }
-          />
-
-          <ModeToggle />
-
-          {/* Mobile menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={<Button variant="outline" size="icon" className="lg:hidden" />}
-            >
-              <Menu className="size-5" />
-              <span className="sr-only">Ouvrir le menu</span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              {navLinks.map((link) => (
-                <DropdownMenuItem key={link.href} render={<Link href={link.href} />}>
-                  {link.label}
-                </DropdownMenuItem>
-              ))}
-              <DropdownMenuItem render={<Link href="#contact" />}>
-                Demander un devis
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        {/* CTA */}
+        <Link
+          href="#contact"
+          className={`justify-self-end rounded-full border border-foreground px-6 py-2.5 text-sm font-medium transition-[opacity,background-color,color] duration-300 hover:bg-foreground hover:text-background ${
+            scrolled ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100"
+          }`}
+          tabIndex={scrolled ? -1 : undefined}
+        >
+          Demander un devis
+        </Link>
       </div>
     </header>
   );
