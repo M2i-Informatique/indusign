@@ -75,7 +75,7 @@ export function Services() {
               <p className="mb-6 leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
-              <ul className="mt-auto flex flex-col gap-3 border-t border-border pt-6">
+              <ul className="flex flex-col gap-3">
                 {service.deliverables.map((deliverable) => (
                   <li key={deliverable} className="flex items-center gap-3 text-sm font-medium">
                     <Check className="size-4 shrink-0 text-primary" aria-hidden />
