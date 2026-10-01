@@ -58,7 +58,9 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
         {items.map((item) => (
           <li
             key={item.title}
-            className="relative w-full shrink-0 snap-start overflow-hidden rounded-2xl border border-border lg:w-[calc(50%-0.75rem)]"
+            // Mobile : tags, image et titre empilés (la superposition écrasait
+            // l'image) ; à partir de `sm`, tags et titre passent en surimpression.
+            className="relative flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-border lg:w-[calc(50%-0.75rem)]"
           >
             <Image
               src={item.image}
@@ -67,7 +69,7 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
               height={900}
               className="w-full"
             />
-            <ul className="absolute top-4 left-4 flex flex-wrap gap-2">
+            <ul className="order-first flex flex-wrap gap-2 p-4 pb-0 sm:absolute sm:top-4 sm:left-4 sm:order-none sm:p-0">
               {item.services.map((service) => (
                 <li
                   key={service}
@@ -77,7 +79,7 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
                 </li>
               ))}
             </ul>
-            <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-background via-background/80 to-transparent p-6 pt-16">
+            <div className="p-4 pt-0 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-linear-to-t sm:from-background sm:via-background/80 sm:to-transparent sm:p-6 sm:pt-16">
               <h3 className="mb-3 font-heading text-xl font-semibold">
                 {item.title}
               </h3>
