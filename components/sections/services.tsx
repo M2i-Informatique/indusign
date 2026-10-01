@@ -32,11 +32,8 @@ export function Services() {
         </div>
 
         <ol className="grid gap-6 md:grid-cols-3">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <li key={service.title} className="rounded-2xl bg-surface p-8">
-              <p className="mb-6 font-heading text-sm font-semibold text-primary">
-                {String(index + 1).padStart(2, "0")}
-              </p>
               <h3 className="mb-3 font-heading text-xl font-semibold">
                 {service.title}
               </h3>

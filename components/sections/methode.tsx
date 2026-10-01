@@ -54,11 +54,8 @@ export function Methode() {
         </div>
 
         <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => (
+          {steps.map((step) => (
             <li key={step.title} className="rounded-2xl bg-surface p-8">
-              <p className="mb-6 font-heading text-sm font-semibold text-primary">
-                {String(index + 1).padStart(2, "0")}
-              </p>
               <h3 className="mb-3 font-heading text-xl font-semibold">{step.title}</h3>
               <p className="leading-relaxed text-muted-foreground">{step.description}</p>
             </li>
