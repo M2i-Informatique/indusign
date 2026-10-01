@@ -3,8 +3,8 @@ const inputClassName =
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 bg-primary text-primary-foreground">
-      <div className="mx-auto flex min-h-svh max-w-7xl flex-col justify-center px-6 py-16 lg:px-10">
+    <section id="contact" className="scroll-mt-16 md:scroll-mt-24 bg-primary text-primary-foreground">
+      <div className="mx-auto flex max-w-7xl flex-col md:min-h-svh justify-center px-6 py-16 lg:px-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Texte */}
           <div>
@@ -18,7 +18,7 @@ export function Contact() {
           </div>
 
           {/* Formulaire */}
-          <form className="rounded-2xl bg-background p-8 text-foreground">
+          <form className="rounded-2xl bg-background p-6 text-foreground sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
                 <label htmlFor="contact-name" className="text-sm font-medium">

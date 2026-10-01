@@ -5,8 +5,8 @@ import { Eyebrow } from "@/components/eyebrow";
 
 export function Hero() {
   return (
-    <section id="accueil" className="mx-auto max-w-7xl scroll-mt-24 px-6 lg:px-10">
-      <div className="grid min-h-[calc(100svh-6rem)] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16">
+    <section id="accueil" className="mx-auto max-w-7xl scroll-mt-16 md:scroll-mt-24 px-6 lg:px-10">
+      <div className="grid min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-6rem)] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16">
         {/* Texte */}
         <div>
           <div className="mb-6">

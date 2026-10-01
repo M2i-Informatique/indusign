@@ -48,9 +48,9 @@ export function Realisations() {
   return (
     <section
       id="realisations"
-      className="mx-auto max-w-7xl scroll-mt-24 px-6 lg:px-10"
+      className="mx-auto max-w-7xl scroll-mt-16 md:scroll-mt-24 px-6 lg:px-10"
     >
-      <div className="flex min-h-svh flex-col justify-center py-16">
+      <div className="flex flex-col md:min-h-svh justify-center py-16">
         <div className="mb-12 max-w-2xl">
           <div className="mb-4">
             <Eyebrow>Nos réalisations</Eyebrow>
