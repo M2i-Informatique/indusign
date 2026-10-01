@@ -58,8 +58,8 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
         {items.map((item) => (
           <li
             key={item.title}
-            // Mobile : tags, image et titre empilés (la superposition écrasait
-            // l'image) ; à partir de `sm`, tags et titre passent en surimpression.
+            // Titre et bouton sous l'image (lisibles quelle que soit la photo) ;
+            // tags empilés sur mobile, en surimpression à partir de `sm`.
             className="relative flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-border lg:w-[calc(50%-0.75rem)]"
           >
             <Image
@@ -79,11 +79,11 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
                 </li>
               ))}
             </ul>
-            <div className="p-4 pt-0 sm:absolute sm:inset-x-0 sm:bottom-0 sm:bg-linear-to-t sm:from-background sm:via-background/80 sm:to-transparent sm:p-6 sm:pt-16">
-              <h3 className="mb-3 font-heading text-xl font-semibold">
+            <div className="flex items-center justify-between gap-4 p-4 pt-0 sm:px-6 sm:pb-6">
+              <h3 className="font-heading text-xl font-semibold">
                 {item.title}
               </h3>
-              <span className="inline-block rounded-full border border-foreground px-4 py-1.5 text-sm font-medium">
+              <span className="shrink-0 rounded-full border border-foreground px-4 py-1.5 text-sm font-medium">
                 Voir le projet
               </span>
             </div>
