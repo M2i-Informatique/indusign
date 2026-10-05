@@ -12,8 +12,8 @@ export default function Home() {
       <Services />
       {/* Variante B (bento) affichée sous la A en attendant le choix du client. */}
       <ServicesBento />
-      <Realisations />
       <Methode />
+      <Realisations />
       <Contact />
     </main>
   );

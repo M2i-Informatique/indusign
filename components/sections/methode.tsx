@@ -1,13 +1,14 @@
 import Image from "next/image";
 import {
+  Box,
   ClipboardList,
   DraftingCompass,
-  Factory,
-  FlaskConical,
+  FileCheck,
   type LucideIcon,
 } from "lucide-react";
 
 import { Eyebrow } from "@/components/eyebrow";
+import { SectionLabel } from "@/components/section-label";
 
 type Step = {
   title: string;
@@ -16,45 +17,47 @@ type Step = {
   deliverable: string;
 };
 
-// Textes provisoires en attente du brief client.
+// Phases : retour client du 05/10/2026. Descriptions et livrables composés
+// à partir des formulations du client (accroche et services), à faire valider.
 const steps: Step[] = [
   {
-    title: "Cadrage",
+    title: "Pré-études",
     icon: ClipboardList,
     description:
-      "Analyse du besoin, contraintes d'usage et de fabrication, rédaction du cahier des charges.",
-    deliverable: "Cahier des charges",
+      "Analyse de votre cahier des charges, proposition de concept et design.",
+    deliverable: "Concept et design",
   },
   {
-    title: "Conception",
+    title: "Étude",
     icon: DraftingCompass,
     description:
-      "Modélisation CAO 3D, calculs et dimensionnement, plans cotés prêts pour la fabrication.",
-    deliverable: "Dossier CAO et plans cotés",
+      "Étude et faisabilité, conception 3D sur Fusion 360 ou Creo, choix des matériaux.",
+    deliverable: "Modélisation CAO 3D",
   },
   {
-    title: "Validation",
-    icon: FlaskConical,
+    title: "Prototypage",
+    icon: Box,
     description:
-      "Prototypes, essais fonctionnels et itérations jusqu'à la validation du design.",
-    deliverable: "Prototype validé",
+      "Prototypage fonctionnel : impression 3D, prototype vraie matière, carte électronique.",
+    deliverable: "Prototype fonctionnel",
   },
   {
-    title: "Série",
-    icon: Factory,
+    title: "Finalisation des études",
+    icon: FileCheck,
     description:
-      "Définition des outillages, lancement de la production et suivi qualité des premières pièces.",
-    deliverable: "Premières pièces conformes",
+      "Dossier de définition et choix de la technologie de fabrication.",
+    deliverable: "Dossier de définition",
   },
 ];
 
 export function Methode() {
   return (
-    <section id="methode" className="mx-auto max-w-7xl scroll-mt-16 px-6 md:scroll-mt-24 lg:px-10">
-      <div className="flex flex-col justify-center py-16 md:min-h-svh">
+    <section id="methode" className="frame scroll-mt-16 xl:scroll-mt-0 md:guide-top px-6 lg:px-10">
+      <SectionLabel>Notre méthode</SectionLabel>
+      <div className="py-16 xl:-mt-16">
         <div className="mb-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <div className="mb-4">
+            <div className="mb-4 xl:hidden">
               <Eyebrow>Notre méthode</Eyebrow>
             </div>
             <h2 className="mb-6 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -75,7 +78,7 @@ export function Methode() {
           />
         </div>
 
-        <ol className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <ol className="grid gap-6 md:grid-cols-2 min-[112rem]:grid-cols-4">
           {steps.map((step, index) => (
             <li
               key={step.title}

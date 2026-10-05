@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,17 @@ export default function RootLayout({
       lang="fr"
       className={`${montserrat.variable} ${roboto.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="relative min-h-full flex flex-col overflow-x-clip">
+        {/* Essai : lignes de construction verticales (plan technique) sur les
+            bords du cadre `frame`, depuis le trait sous le header (h-24) ;
+            les horizontales sont l'utilitaire `guide-top` de chaque section
+            (globals.css). */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-24 bottom-0 z-30 hidden md:block"
+        >
+          <div className="frame h-full border-x border-dashed border-foreground/15" />
+        </div>
         <Header />
         {children}
         <Footer />

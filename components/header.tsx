@@ -87,7 +87,8 @@ const sectionIds = navLinks.map((link) => link.sectionId);
 
 export function Header() {
   const activeSection = useActiveSection(sectionIds);
-  const scrolled = useScrolled(80);
+  // Seuil bas et fondus courts (150 ms) : la bascule doit suivre le scroll.
+  const scrolled = useScrolled(10);
   const [menuOpen, setMenuOpen] = useMobileMenu();
 
   // L'état compact ne s'applique qu'en desktop (préfixe `md:`) : sur mobile,
@@ -96,20 +97,30 @@ export function Header() {
   const fadeWhenScrolled = scrolled ? "md:invisible md:opacity-0" : "";
 
   return (
-    // Même grille dans les deux états : la bascule ne fait que fondre logo et
-    // CTA, et détacher la pill de navigation. Tout est animable en CSS.
-    <header className="pointer-events-none sticky top-0 z-40">
+    // Barre opaque : la page (lignes de construction et titres de section
+    // compris) défile dessous. Même grille dans les deux états : la bascule ne
+    // fait que fondre logo et CTA (et la pill dès `xl`) et réduire la hauteur
+    // (96 → 64 px). Dès `md`, trait pointillé pleine largeur en bas (-1 px :
+    // superposé au `guide-top` du Hero en haut de page). Dès `xl`, au scroll,
+    // la bande s'efface (transparente, sans trait, traversable aux clics) :
+    // la navigation passe dans la marge droite. Pas de `transform` sur le
+    // header, qui déplacerait aussi la navigation latérale `fixed`.
+    <header
+      className={`sticky top-0 z-40 bg-background transition-colors duration-150 after:transition-opacity after:duration-150 md:after:absolute md:after:inset-x-0 md:after:-bottom-px md:after:h-px md:after:bg-(image:--guide-dash) md:after:bg-fixed ${
+        scrolled ? "xl:pointer-events-none xl:bg-transparent xl:after:opacity-0" : ""
+      }`}
+    >
       <div
-        className={`mx-auto flex h-16 max-w-7xl items-center justify-between bg-background px-6 transition-colors duration-300 md:grid md:h-24 md:grid-cols-[1fr_auto_1fr] lg:px-10 ${
-          scrolled ? "md:bg-transparent" : ""
+        className={`mx-auto flex h-16 max-w-7xl items-center justify-between px-6 transition-[height] duration-150 md:grid md:grid-cols-[1fr_auto_1fr] lg:px-10 ${
+          scrolled ? "md:h-16" : "md:h-24"
         }`}
       >
-        {/* Logo */}
+        {/* Logo : à gauche, centré dès `xl` (seul élément du header). */}
         <Link
           href="#accueil"
           aria-label="Indusign — Accueil"
           onClick={() => setMenuOpen(false)}
-          className={`pointer-events-auto justify-self-start transition-[opacity,visibility] duration-300 ${fadeWhenScrolled}`}
+          className={`justify-self-start transition-[opacity,visibility] duration-150 xl:col-start-2 xl:justify-self-center ${fadeWhenScrolled}`}
         >
           <Image
             src="/logo-wordmark.jpg"
@@ -117,12 +128,13 @@ export function Header() {
             width={541}
             height={53}
             priority
-            className="h-6 w-auto"
+            className="h-6 w-auto xl:h-9"
           />
         </Link>
 
-        {/* Navigation (pill centrée) */}
-        <nav className="pointer-events-auto hidden items-center gap-1 rounded-full border border-border bg-surface p-1 md:flex">
+        {/* Navigation (pill centrée) : dès `xl`, remplacée par la navigation
+            latérale. */}
+        <nav className="hidden items-center gap-1 rounded-full border border-border bg-surface p-1 md:flex xl:hidden">
           {navLinks.map((link) => {
             const isActive = link.sectionId === activeSection;
             return (
@@ -145,7 +157,7 @@ export function Header() {
         {/* CTA (desktop) */}
         <Link
           href="#contact"
-          className={`pointer-events-auto hidden justify-self-end rounded-full border border-foreground px-6 py-2.5 text-sm font-medium transition-[opacity,visibility,background-color,color] duration-300 hover:bg-foreground hover:text-background md:inline-block ${fadeWhenScrolled}`}
+          className={`hidden justify-self-end border border-foreground px-6 py-2.5 text-sm font-medium transition-[opacity,visibility,background-color,color] duration-150 hover:bg-foreground hover:text-background md:inline-block xl:hidden ${fadeWhenScrolled}`}
         >
           Demander un devis
         </Link>
@@ -157,7 +169,7 @@ export function Header() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((open) => !open)}
-          className="pointer-events-auto flex size-10 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:bg-surface md:hidden"
+          className="flex size-10 items-center justify-center rounded-full border border-border transition-colors duration-300 hover:bg-surface md:hidden"
         >
           {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -169,7 +181,7 @@ export function Header() {
         aria-label="Navigation mobile"
         className={`fixed inset-x-0 top-16 bottom-0 flex flex-col gap-8 bg-background px-6 py-8 transition-[opacity,visibility,translate] duration-300 md:hidden ${
           menuOpen
-            ? "pointer-events-auto visible translate-y-0 opacity-100"
+            ? "visible translate-y-0 opacity-100"
             : "invisible -translate-y-2 opacity-0"
         }`}
       >
@@ -196,7 +208,66 @@ export function Header() {
         <Link
           href="#contact"
           onClick={() => setMenuOpen(false)}
-          className="rounded-full bg-primary px-6 py-3 text-center text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary-hover"
+          className="bg-primary px-6 py-3 text-center text-sm font-medium text-primary-foreground transition-colors duration-300 hover:bg-primary-hover"
+        >
+          Demander un devis
+        </Link>
+      </nav>
+
+      {/* Navigation latérale (dès `xl`, permanente) : colonne pleine hauteur
+          dans la marge droite, depuis la ligne verticale (bord droit du cadre
+          `frame`) jusqu'au bord de l'écran. Noir et blanc (hors logo et lien actif en bleu). Fond
+          blanc : la bande bleue du Contact ne passe pas sous le texte. Pas de
+          bordure gauche : la ligne verticale du cadre (layout) fait office. */}
+      <nav
+        aria-label="Navigation latérale"
+        className="pointer-events-auto fixed inset-y-0 right-0 left-[calc(50%_+_min(40rem,_50%_-_var(--gutter)))] hidden flex-col bg-background xl:flex"
+      >
+        {/* Rangée du logo : même hauteur que le header (96 → 64 px), logo
+            visible seulement au scroll (le header s'efface alors). Trait du bas
+            seulement au scroll : en haut de page, celui du header passe déjà
+            là. Hauteur 64 px = bande des titres de section. */}
+        <Link
+          href="#accueil"
+          aria-label="Indusign — Accueil"
+          className={`flex shrink-0 items-center justify-center border-b border-dashed px-6 transition-[height,opacity,visibility,border-color] duration-150 ${
+            scrolled
+              ? "visible h-16 border-foreground/15 opacity-100"
+              : "invisible h-24 border-transparent opacity-0"
+          }`}
+        >
+          <Image
+            src="/logo-wordmark.jpg"
+            alt="Indusign"
+            width={541}
+            height={53}
+            className="h-5 w-auto"
+          />
+        </Link>
+
+        <ul>
+          {navLinks.map((link) => {
+            const isActive = link.sectionId === activeSection;
+            return (
+              <li key={link.href} className="border-b border-dashed border-foreground/15">
+                <Link
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`flex h-12 items-center px-6 text-sm tracking-[0.2em] uppercase transition-colors duration-300 hover:bg-surface ${
+                    isActive ? "font-bold text-primary" : "font-medium"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <Link
+          href="#contact"
+          // Même hauteur que le footer (h-16) : alignés en bas de page.
+          className="mt-auto flex h-16 shrink-0 items-center justify-center border-t border-dashed border-foreground/15 px-6 text-center text-sm font-bold tracking-[0.2em] uppercase transition-colors duration-300 hover:bg-foreground hover:text-background"
         >
           Demander un devis
         </Link>

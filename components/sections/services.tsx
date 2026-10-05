@@ -1,6 +1,7 @@
 import { Box, Check, Factory, PenTool, type LucideIcon } from "lucide-react";
 
 import { Eyebrow } from "@/components/eyebrow";
+import { SectionLabel } from "@/components/section-label";
 
 type Service = {
   title: string;
@@ -9,7 +10,8 @@ type Service = {
   deliverables: string[];
 };
 
-// Textes provisoires en attente du brief client.
+// Livrables et description Prototypage : retour client du 05/10/2026.
+// Descriptions Conception et Industrialisation : provisoires.
 const services: Service[] = [
   {
     title: "Conception",
@@ -17,21 +19,21 @@ const services: Service[] = [
     description:
       "Nous transformons votre besoin en un dossier technique prêt à fabriquer.",
     deliverables: [
-      "Étude de faisabilité",
-      "Modélisation CAO 3D",
-      "Plans cotés",
+      "Étude et faisabilité",
+      "Modélisation CAO 3D (Creo, Fusion 360)",
+      "Dossier de définition",
+      "Conception de moule",
       "Choix des matériaux",
     ],
   },
   {
     title: "Prototypage",
     icon: Box,
-    description:
-      "Chaque itération sécurise la conception avant tout engagement industriel.",
+    description: "Réalisation du produit fini.",
     deliverables: [
-      "Maquettes et pièces d'essai",
-      "Essais fonctionnels",
-      "Itérations de design",
+      "Impression 3D",
+      "Prototype vraie matière",
+      "Carte électronique",
     ],
   },
   {
@@ -40,19 +42,21 @@ const services: Service[] = [
     description:
       "Nous restons à vos côtés jusqu'aux premières pièces bonnes.",
     deliverables: [
-      "Définition des outillages",
-      "Mise en série",
-      "Suivi de fabrication",
+      "Choix des fournisseurs",
+      "Suivi des projets",
+      "Validation des EI",
+      "Visite des sous-traitants en pays low cost ou en local",
     ],
   },
 ];
 
 export function Services() {
   return (
-    <section id="services" className="mx-auto max-w-7xl scroll-mt-16 px-6 md:scroll-mt-24 lg:px-10">
-      <div className="flex flex-col md:min-h-svh justify-center py-16">
+    <section id="services" className="frame scroll-mt-16 xl:scroll-mt-0 md:guide-top px-6 lg:px-10">
+      <SectionLabel>Nos services</SectionLabel>
+      <div className="py-16 xl:-mt-16">
         <div className="mb-12 max-w-2xl">
-          <div className="mb-4">
+          <div className="mb-4 xl:hidden">
             <Eyebrow>Nos services</Eyebrow>
           </div>
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -77,8 +81,8 @@ export function Services() {
               </p>
               <ul className="flex flex-col gap-3">
                 {service.deliverables.map((deliverable) => (
-                  <li key={deliverable} className="flex items-center gap-3 text-sm font-medium">
-                    <Check className="size-4 shrink-0 text-primary" aria-hidden />
+                  <li key={deliverable} className="flex items-start gap-3 text-sm font-medium">
+                    <Check className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
                     {deliverable}
                   </li>
                 ))}
