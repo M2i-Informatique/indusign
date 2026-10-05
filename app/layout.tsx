@@ -34,12 +34,13 @@ export default function RootLayout({
     >
       <body className="relative min-h-full flex flex-col overflow-x-clip">
         {/* Essai : lignes de construction verticales (plan technique) sur les
-            bords du cadre `frame`, depuis le trait sous le header (h-24) ;
+            bords du cadre `frame`, sur toute la hauteur : le header opaque
+            (z-40) les masque, sauf dès `xl` au scroll où il s'efface ;
             les horizontales sont l'utilitaire `guide-top` de chaque section
             (globals.css). */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-24 bottom-0 z-30 hidden md:block"
+          className="pointer-events-none absolute inset-0 z-30 hidden md:block"
         >
           <div className="frame h-full border-x border-dashed border-foreground/15" />
         </div>

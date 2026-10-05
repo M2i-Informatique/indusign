@@ -13,7 +13,8 @@ export function Contact() {
           par défaut. */}
       <div className="frame px-6 md:relative md:z-31 md:bg-primary md:before:absolute md:before:top-0 md:before:right-full md:before:h-px md:before:w-screen md:before:bg-(image:--guide-dash) md:before:bg-fixed md:after:absolute md:after:right-full md:after:bottom-0 md:after:h-px md:after:w-screen md:after:bg-(image:--guide-dash) md:after:bg-fixed lg:px-10">
         <SectionLabel>Contact</SectionLabel>
-        <div className="py-16 text-primary-foreground xl:-mt-16">
+        {/* Seule section en plein écran (dès `md`), contenu centré. */}
+        <div className="flex flex-col justify-center py-16 text-primary-foreground md:min-h-svh xl:-mt-16">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Texte */}
             <div>

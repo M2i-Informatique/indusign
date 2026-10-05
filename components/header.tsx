@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Contact", href: "#contact", sectionId: "contact" },
 ];
 
-/** Id de la section qui traverse le milieu de l'écran (scroll spy). */
+/** Id de la section qui traverse une ligne à 25 % du haut de l'écran (scroll spy). */
 function useActiveSection(sectionIds: string[]) {
   const [active, setActive] = useState(sectionIds[0]);
 
@@ -26,8 +26,10 @@ function useActiveSection(sectionIds: string[]) {
         const entry = entries.find((e) => e.isIntersecting);
         if (entry) setActive(entry.target.id);
       },
-      // Zone d'observation réduite à une ligne au milieu du viewport.
-      { rootMargin: "-50% 0px -50% 0px" },
+      // Zone d'observation réduite à une ligne à 25 % du haut du viewport :
+      // les sections ont la hauteur de leur contenu, une ligne au milieu
+      // désignerait la section suivante après un clic sur une ancre courte.
+      { rootMargin: "-25% 0px -75% 0px" },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -111,7 +113,7 @@ export function Header() {
       }`}
     >
       <div
-        className={`mx-auto flex h-16 max-w-7xl items-center justify-between px-6 transition-[height] duration-150 md:grid md:grid-cols-[1fr_auto_1fr] lg:px-10 ${
+        className={`frame flex h-16 items-center justify-between px-6 transition-[height] duration-150 md:grid md:grid-cols-[1fr_auto_1fr] lg:px-10 ${
           scrolled ? "md:h-16" : "md:h-24"
         }`}
       >
@@ -254,7 +256,7 @@ export function Header() {
                   href={link.href}
                   aria-current={isActive ? "page" : undefined}
                   className={`flex h-12 items-center px-6 text-sm tracking-[0.2em] uppercase transition-colors duration-300 hover:bg-surface ${
-                    isActive ? "font-bold text-primary" : "font-medium"
+                    isActive ? "bg-surface font-bold text-primary" : "font-medium"
                   }`}
                 >
                   {link.label}
@@ -267,7 +269,7 @@ export function Header() {
         <Link
           href="#contact"
           // Même hauteur que le footer (h-16) : alignés en bas de page.
-          className="mt-auto flex h-16 shrink-0 items-center justify-center border-t border-dashed border-foreground/15 px-6 text-center text-sm font-bold tracking-[0.2em] uppercase transition-colors duration-300 hover:bg-foreground hover:text-background"
+          className="mt-auto flex h-16 shrink-0 items-center justify-center border-t border-dashed border-foreground/15 px-6 text-center text-sm font-bold tracking-[0.2em] uppercase transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
         >
           Demander un devis
         </Link>
