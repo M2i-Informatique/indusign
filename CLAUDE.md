@@ -41,11 +41,12 @@ au client.
   haut de section, du bord gauche à la ligne verticale droite). Le serveur
   dev ne recharge pas ce fichier : redémarrer `npm run dev` après modif.
 - `components/header.tsx` (client) : scroll spy par `IntersectionObserver`
-  (ligne au milieu du viewport), bascule au scroll dès 10 px (150 ms).
+  (ligne à 25 % du haut du viewport), bascule au scroll dès 10 px (150 ms).
   - Sous `md` : barre `h-16` (logo + burger), menu plein écran (fermeture
     Échap / clic / passage desktop, scroll bloqué).
   - `md`–`xl` : logo, pill de navigation, CTA ; au scroll, logo et CTA
     fondus (`invisible`), barre 96 → 64 px, toujours opaque avec trait bas.
+  - Conteneur `frame`, comme les sections.
   - Dès `xl` : logo seul, centré ; navigation latérale fixe dans la marge
     droite (logo au scroll, liens noir/blanc, actif en bleu, « Demander un
     devis » en bas, `h-16` comme le footer). Au scroll, la barre s'efface
@@ -59,7 +60,8 @@ au client.
   centré dans la marge gauche), hauteur `h-16`.
 - `components/sections/*` : une section = `<section id>` en `frame` +
   `md:guide-top`, bloc intérieur `py-16` (hauteur du contenu),
-  `scroll-mt-16 xl:scroll-mt-0`. Contact : bleu pleine largeur sous `md`,
+  `scroll-mt-16 xl:scroll-mt-0`. Contact : plein écran dès `md`
+  (`md:min-h-svh`, contenu centré), bleu pleine largeur sous `md`,
   limité au cadre au-delà (au-dessus des lignes verticales, traits haut et
   bas dans la marge gauche).
 - `realisations-carousel.tsx` (client) : scroll-snap natif, flèches et points
