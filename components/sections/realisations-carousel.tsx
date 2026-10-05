@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export type Realisation = {
   title: string;
+  description: string;
   services: string[];
   image: string;
   alt: string;
@@ -79,13 +80,13 @@ export function RealisationsCarousel({ items }: { items: Realisation[] }) {
                 </li>
               ))}
             </ul>
-            <div className="flex items-center justify-between gap-4 p-4 pt-0 sm:px-6 sm:pb-6">
+            <div className="p-4 pt-0 sm:px-6 sm:pb-6">
               <h3 className="font-heading text-xl font-semibold">
                 {item.title}
               </h3>
-              <span className="shrink-0 rounded-full border border-foreground px-4 py-1.5 text-sm font-medium">
-                Voir le projet
-              </span>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
             </div>
           </li>
         ))}
